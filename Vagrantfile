@@ -2,16 +2,13 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
+  config.vm.box = "box-cutter/ubuntu1404-desktop"
 
-  config.vm.box = "ubuntu/trusty64"
+  config.ssh.forward_agent = true
 
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  # config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 8080, host: 8080
+  config.vm.network "forwarded_port", guest: 3000, host: 3000
 
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
   # config.vm.network "private_network", ip: "192.168.33.10"
 
   # Create a public network, which generally matched to bridged network.
@@ -19,51 +16,24 @@ Vagrant.configure(2) do |config|
   # your network.
   # config.vm.network "public_network"
 
-  # config.vm.synced_folder "../data", "/vagrant_data"
+  config.vm.synced_folder "../../git", "/home/vagrant/git"
 
-  # config.vm.provider "virtualbox" do |vb|
-  #   vb.gui = true
-  #  vb.memory = "512"
+  config.vm.provider "virtualbox" do |vb|
+    vb.gui = true
+    vb.memory = "2048"
+  end
+
+  # Define a Vagrant Push strategy for pushing to Atlas. Other push strategies
+  # such as FTP and Heroku are also available. See the documentation at
+  # https://docs.vagrantup.com/v2/push/atlas.html for more information.
+  # config.push.define "atlas" do |push|
+  #   push.app = "YOUR_ATLAS_USERNAME/YOUR_APPLICATION_NAME"
   # end
 
-  $installSoftware = <<-SHELL
-    curl -sL https://deb.nodesource.com/setup_5.x | sudo bash -
-    #sudo apt-get update
-    sudo apt-get install nodejs -y
-    sudo apt-get install build-essential -y
-    sudo apt-get install git -y
-  SHELL
-
-  $setupHome = <<-SHELL
-    VAGRANT_HOME=/home/vagrant
-    TMP=${VAGRANT_HOME}/tmp
-    TMP_HOME=${TMP}/home
-    git clone https://github.com/hoto/home.git ${TMP_HOME}
-    rsync -a ${TMP_HOME}/ ${VAGRANT_HOME}/
-  SHELL
-
-  $setupVim = <<-SHELL
-    VAGRANT_HOME=/home/vagrant
-    TMP=${VAGRANT_HOME}/tmp
-    POWERLINE_FONTS=${TMP}/powerline-fonts
-    git clone https://github.com/VundleVim/Vundle.vim.git ${VAGRANT_HOME}/.vim/bundle/Vundle.vim
-    vim +PluginInstall +qall
-
-    git clone https://github.com/powerline/fonts ${POWERLINE_FONTS}
-    sh ${POWERLINE_FONTS}/install.sh
-  SHELL
-
-  $setupFonts = <<-SHELL
-    VAGRANT_HOME=/home/vagrant
-    TMP=${VAGRANT_HOME}/tmp
-    POWERLINE_FONTS=${TMP}/powerline-fonts
-
-    git clone https://github.com/powerline/fonts ${POWERLINE_FONTS}
-    sh ${POWERLINE_FONTS}/install.sh
-  SHELL
-
-  config.vm.provision "installSoftware", type: "shell", inline: $installSoftware, privileged: true
-  config.vm.provision "setupHome", type: "shell", inline: $setupHome, privileged: false
-  config.vm.provision "setupVim", type: "shell", inline: $setupVim, privileged: false
-  config.vm.provision "setupFonts", type: "shell", inline: $setupFonts, privileged: false
+  # Enable provisioning with a shell script. Additional provisioners such as
+  # Puppet, Chef, Ansible, Salt, and Docker are also available.
+  config.vm.provision "install-software", type: "shell", path: "deployment/install-software.sh", privileged: true
+  config.vm.provision "setup-home", type: "shell", path: "deployment/setup-home.sh", privileged: false
+  config.vm.provision "setup-fonts", type: "shell", path: "deployment/install-fonts.sh", privileged: false
+  config.vm.provision "setup-vim", type: "shell", path: "deployment/setup-vim.sh", privileged: false
 end
