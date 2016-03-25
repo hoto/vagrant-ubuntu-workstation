@@ -8,12 +8,6 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 8080, host: 8080
   config.vm.network "forwarded_port", guest: 3000, host: 3000
 
-  config.vm.provider "virtualbox" do |vb|
-    vb.gui = true
-    vb.customize ["modifyvm", :id, "--monitorcount", "2"]
-    vb.memory = "2048"
-  end
-
   config.vm.synced_folder "../../git", "/home/vagrant/git"
 
   config.vm.provision "file", source: "~/.gitconfig", destination: ".gitconfig"
@@ -34,4 +28,10 @@ Vagrant.configure(2) do |config|
   # Bridged networks make the machine appear as another physical device on
   # your network.
   # config.vm.network "public_network"
+
+  config.vm.provider "virtualbox" do |vb|
+    vb.gui = true
+    vb.customize ["modifyvm", :id, "--monitorcount", "2"]
+    vb.memory = "2048"
+  end
 end
