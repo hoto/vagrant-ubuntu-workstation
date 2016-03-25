@@ -1,3 +1,4 @@
+echo '[INFO] Installing nodejs...'
 curl -sL https://deb.nodesource.com/setup_5.x | sudo bash -
 
 sudo apt-get update

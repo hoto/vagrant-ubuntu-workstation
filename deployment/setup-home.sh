@@ -1,3 +1,4 @@
+echo '[INFO] Cloning home from github...'
 VAGRANT_HOME=/home/vagrant
 TMP=${VAGRANT_HOME}/tmp
 TMP_HOME=${TMP}/home

@@ -1,2 +1,3 @@
+echo '[INFO] Setting wallpaper...'
 # this is the simplest solution to change wallpaper that works i could find...
 mv /home/vagrant/wallpapers/wallpaper.jpg /usr/share/backgrounds/warty-final-ubuntu.png
