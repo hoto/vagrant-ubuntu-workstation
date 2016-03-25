@@ -19,13 +19,13 @@ Vagrant.configure(2) do |config|
   config.vm.provision "file", source: "~/.gitconfig", destination: ".gitconfig"
   config.vm.provision "file", source: "~/.gittoken", destination: ".gittoken"
   config.vm.provision "file", source: "wallpapers/wallpaper.jpg", destination: "wallpapers/wallpaper.jpg"
-  config.vm.provision "software", type: "shell", path: "deployment/install-ansible.sh", privileged: true
+  config.vm.provision "ansible", type: "shell", path: "deployment/install-ansible.sh", privileged: true
   config.vm.provision "software", type: "shell", path: "deployment/install-nodejs.sh", privileged: true
   config.vm.provision "software", type: "shell", path: "deployment/install-software.sh", privileged: true
   config.vm.provision "setup", type: "shell", path: "deployment/setup-home.sh", privileged: false
   config.vm.provision "setup", type: "shell", path: "deployment/install-fonts.sh", privileged: false
   config.vm.provision "setup", type: "shell", path: "deployment/setup-vim.sh", privileged: false
-  config.vm.provision "wallpaper", type: "shell", path: "deployment/set-wallpaper.sh", privileged: false
+  config.vm.provision "wallpaper", type: "shell", path: "deployment/set-wallpaper.sh", privileged: true
 
   # config.vm.network "private_network", ip: "192.168.33.10"
 
