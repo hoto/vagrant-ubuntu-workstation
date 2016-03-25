@@ -28,6 +28,8 @@ Vagrant.configure(2) do |config|
   config.vm.provision "install-xclip", type: "shell", path: $install + "/install-xclip.sh", privileged: true
   config.vm.provision "install-nautilus", type: "shell", path: $install + "/install-nautilus.sh", privileged: true
   config.vm.provision "install-fonts", type: "shell", path: $install + "/install-fonts.sh", privileged: false
+  #this is time consuming...
+  #config.vm.provision "dist-upgrade", type: "shell", path: $install + "/dist-upgrade.sh", privileged: false
 
   config.vm.provision "setup-home", type: "shell", path: $setup + "/setup-home.sh", privileged: false
   config.vm.provision "setup-vim", type: "shell", path: $setup + "/setup-vim.sh", privileged: false
