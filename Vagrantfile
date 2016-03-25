@@ -20,6 +20,7 @@ Vagrant.configure(2) do |config|
   $setup = $deployment + "/setup"
 
   config.vm.provision "uninstall-libre", type: "shell", path: $uninstall + "/uninstall-libre.sh", privileged: true
+  config.vm.provision "uninstall-amazon", type: "shell", path: $uninstall + "/uninstall-amazon.sh", privileged: true
 
   config.vm.provision "install-ansible", type: "shell", path: $install + "/install-ansible.sh", privileged: true
   config.vm.provision "install-nodejs", type: "shell", path: $install + "/install-nodejs.sh", privileged: true
@@ -38,7 +39,7 @@ Vagrant.configure(2) do |config|
   config.vm.provider "virtualbox" do |vb|
     vb.gui = true
     vb.customize ["modifyvm", :id, "--monitorcount", "2"]
-    vb.memory = "2048"
+    vb.memory = "8192"
   end
   # config.vm.network "private_network", ip: "192.168.33.10"
 
