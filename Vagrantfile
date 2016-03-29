@@ -8,7 +8,7 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 8080, host: 8080
   config.vm.network "forwarded_port", guest: 3000, host: 3000
 
-  config.vm.synced_folder "../../git", "/home/vagrant/git"
+  config.vm.synced_folder "../../git", "/home/vagrant/git", owner: "vagrant", group: "vagrant"
 
   config.vm.provision "copy-gitconfig", type: "file", source: "~/.gitconfig", destination: ".gitconfig"
   config.vm.provision "copy-gittoken", type: "file", source: "~/.gittoken", destination: ".gittoken"
@@ -24,7 +24,9 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "install-ansible", type: "shell", path: $install + "/install-ansible.sh", privileged: true
   config.vm.provision "install-nodejs", type: "shell", path: $install + "/install-nodejs.sh", privileged: true
+  config.vm.provision "install-docker", type: "shell", path: $install + "/install-docker.sh", privileged: true
   config.vm.provision "install-chrome", type: "shell", path: $install + "/install-chrome.sh", privileged: false
+  config.vm.provision "install-atom", type: "shell", path: $install + "/install-atom.sh", privileged: false
   config.vm.provision "install-git", type: "shell", path: $install + "/install-git.sh", privileged: true
   config.vm.provision "install-vim", type: "shell", path: $install + "/install-vim.sh", privileged: true
   config.vm.provision "install-xclip", type: "shell", path: $install + "/install-xclip.sh", privileged: true
