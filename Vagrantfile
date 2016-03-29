@@ -8,6 +8,12 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 8080, host: 8080
   config.vm.network "forwarded_port", guest: 3000, host: 3000
 
+  config.vm.provider "virtualbox" do |vb|
+    vb.gui = true
+    vb.customize ["modifyvm", :id, "--monitorcount", "2"]
+    vb.memory = "8192"
+  end
+
   config.vm.synced_folder "../../git", "/home/vagrant/git", owner: "vagrant", group: "vagrant"
 
   config.vm.provision "copy-gitconfig", type: "file", source: "~/.gitconfig", destination: ".gitconfig"
@@ -32,18 +38,11 @@ Vagrant.configure(2) do |config|
   config.vm.provision "install-xclip", type: "shell", path: $install + "/install-xclip.sh", privileged: true
   config.vm.provision "install-nautilus", type: "shell", path: $install + "/install-nautilus.sh", privileged: true
   config.vm.provision "install-fonts", type: "shell", path: $install + "/install-fonts.sh", privileged: false
-  #this is time consuming...
-  #config.vm.provision "dist-upgrade", type: "shell", path: $install + "/dist-upgrade.sh", privileged: false
 
   config.vm.provision "setup-home", type: "shell", path: $setup + "/setup-home.sh", privileged: false
   config.vm.provision "setup-vim", type: "shell", path: $setup + "/setup-vim.sh", privileged: false
   config.vm.provision "setup-wallpaper", type: "shell", path: $setup + "/setup-wallpaper.sh", privileged: true
 
-  config.vm.provider "virtualbox" do |vb|
-    vb.gui = true
-    vb.customize ["modifyvm", :id, "--monitorcount", "2"]
-    vb.memory = "8192"
-  end
   # config.vm.network "private_network", ip: "192.168.33.10"
 
   # Create a public network, which generally matched to bridged network.
