@@ -37,6 +37,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision "install-chrome", type: "shell", path: $install + "/install-chrome.sh", privileged: false
   config.vm.provision "install-atom", type: "shell", path: $atom + "/install-atom.sh", privileged: false
   config.vm.provision "install-atom-eclipse-keybindings", type: "shell", path: $atom_packages + "/install-atom-eclipse-keybindings.sh", privileged: false
+  config.vm.provision "install-atom-highlight-selected", type: "shell", path: $atom_packages + "/install-atom-highlight-selected.sh", privileged: false
   config.vm.provision "install-git", type: "shell", path: $install + "/install-git.sh", privileged: true
   config.vm.provision "install-vim", type: "shell", path: $install + "/install-vim.sh", privileged: true
   config.vm.provision "install-xclip", type: "shell", path: $install + "/install-xclip.sh", privileged: true
