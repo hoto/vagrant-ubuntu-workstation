@@ -10,7 +10,7 @@ import sys
 desktopfile = sys.argv[1]
 
 def current_launcher():
-    get_current = subprocess.check_output(["DISPLAY=:1 gsettings", "get", "com.canonical.Unity.Launcher", "favorites"]).decode("utf-8")
+    get_current = subprocess.check_output(["gsettings", "get", "com.canonical.Unity.Launcher", "favorites"]).decode("utf-8")
     return eval(get_current)
 
 def set_launcher(desktopfile):
@@ -20,9 +20,9 @@ def set_launcher(desktopfile):
     if sys.argv[2] == "a":
         if not new_icon in curr_launcher:
             curr_launcher.insert(last, new_icon)
-            subprocess.Popen(["DISPLAY=:1 gsettings", "set", "com.canonical.Unity.Launcher","favorites",str(curr_launcher)])
+            subprocess.Popen(["gsettings", "set", "com.canonical.Unity.Launcher","favorites",str(curr_launcher)])
     elif sys.argv[2] == "r":
         curr_launcher.remove(new_icon)
-        subprocess.Popen(["DISPLAY=:1 gsettings", "set", "com.canonical.Unity.Launcher","favorites",str(curr_launcher)])
+        subprocess.Popen(["gsettings", "set", "com.canonical.Unity.Launcher","favorites",str(curr_launcher)])
 
 set_launcher(desktopfile)
