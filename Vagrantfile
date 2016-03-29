@@ -24,6 +24,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "install-ansible", type: "shell", path: $install + "/install-ansible.sh", privileged: true
   config.vm.provision "install-nodejs", type: "shell", path: $install + "/install-nodejs.sh", privileged: true
+  config.vm.provision "install-chrome", type: "shell", path: $install + "/install-chrome.sh", privileged: false
   config.vm.provision "install-git", type: "shell", path: $install + "/install-git.sh", privileged: true
   config.vm.provision "install-vim", type: "shell", path: $install + "/install-vim.sh", privileged: true
   config.vm.provision "install-xclip", type: "shell", path: $install + "/install-xclip.sh", privileged: true
