@@ -22,8 +22,11 @@ Vagrant.configure(2) do |config|
 
   $deployment = "deployment"
   $install = $deployment + "/install"
+  $atom = $install + "/atom"
+  $atom_packages = $atom + "/packages"
   $uninstall = $deployment + "/uninstall"
   $setup = $deployment + "/setup"
+  $launcher = $setup + "/launcher-icons"
 
   config.vm.provision "uninstall-libre", type: "shell", path: $uninstall + "/uninstall-libre.sh", privileged: true
   config.vm.provision "uninstall-amazon", type: "shell", path: $uninstall + "/uninstall-amazon.sh", privileged: true
@@ -32,7 +35,8 @@ Vagrant.configure(2) do |config|
   config.vm.provision "install-nodejs", type: "shell", path: $install + "/install-nodejs.sh", privileged: true
   config.vm.provision "install-docker", type: "shell", path: $install + "/install-docker.sh", privileged: true
   config.vm.provision "install-chrome", type: "shell", path: $install + "/install-chrome.sh", privileged: false
-  config.vm.provision "install-atom", type: "shell", path: $install + "/install-atom.sh", privileged: false
+  config.vm.provision "install-atom", type: "shell", path: $atom + "/install-atom.sh", privileged: false
+  config.vm.provision "install-atom-eclipse-keybindings", type: "shell", path: $atom_packages + "/install-atom-eclipse-keybindings.sh", privileged: false
   config.vm.provision "install-git", type: "shell", path: $install + "/install-git.sh", privileged: true
   config.vm.provision "install-vim", type: "shell", path: $install + "/install-vim.sh", privileged: true
   config.vm.provision "install-xclip", type: "shell", path: $install + "/install-xclip.sh", privileged: true
@@ -43,6 +47,11 @@ Vagrant.configure(2) do |config|
   config.vm.provision "setup-home", type: "shell", path: $setup + "/setup-home.sh", privileged: false
   config.vm.provision "setup-vim", type: "shell", path: $setup + "/setup-vim.sh", privileged: false
   config.vm.provision "setup-wallpaper", type: "shell", path: $setup + "/setup-wallpaper.sh", privileged: true
+
+  # This does not work, it uses gsetting which does not work over ssh, maybe ansible will be able to do it?
+  config.vm.provision "add-chrome-icon", type: "shell", path: $launcher + "/add-chrome-icon.sh", privileged: false
+  config.vm.provision "add-atom-icon", type: "shell", path: $launcher + "/add-chrome-icon.sh", privileged: false
+  config.vm.provision "remove-firefox-icon", type: "shell", path: $launcher + "/remove-firefox-icon.sh", privileged: false
 
   # config.vm.network "private_network", ip: "192.168.33.10"
 
