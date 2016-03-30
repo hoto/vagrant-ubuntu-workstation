@@ -10,9 +10,9 @@ Vagrant.configure(2) do |config|
 
   config.vm.provider "virtualbox" do |vb|
     vb.gui = true
-    vb.customize ["modifyvm", :id, "--monitorcount", "2"]
     vb.memory = "8192"
     vb.customize ["modifyvm", :id, "--cpus", "4"]
+    vb.customize ["modifyvm", :id, "--monitorcount", "2"]
   end
 
   config.vm.synced_folder "../../git", "/home/vagrant/git", owner: "vagrant", group: "vagrant"
