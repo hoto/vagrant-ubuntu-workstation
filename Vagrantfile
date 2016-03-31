@@ -3,16 +3,19 @@
 
 Vagrant.configure(2) do |config|
   config.vm.box = "box-cutter/ubuntu1404-desktop"
+  config.vb.post_up_message = "Hello Andrzej, how are you doing today?"
 
   config.ssh.forward_agent = true
   config.vm.network "forwarded_port", guest: 8080, host: 8080
   config.vm.network "forwarded_port", guest: 3000, host: 3000
 
   config.vm.provider "virtualbox" do |vb|
-    vb.gui = true
     vb.memory = "8192"
     vb.customize ["modifyvm", :id, "--cpus", "4"]
-    vb.customize ["modifyvm", :id, "--monitorcount", "2"]
+    if ENV['GUI'] == true
+      vb.gui = true
+      vb.customize ["modifyvm", :id, "--monitorcount", "2"]
+    end
   end
 
   config.vm.synced_folder "../../git", "/home/vagrant/git", owner: "vagrant", group: "vagrant"
