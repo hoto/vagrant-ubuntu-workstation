@@ -3,7 +3,7 @@
 
 Vagrant.configure(2) do |config|
   config.vm.box = "box-cutter/ubuntu1404-desktop"
-  config.vm.post_up_message = "Hello Andrzej. How are you doing today?"
+  config.vm.post_up_message = "Hello Andrzej. Your machine has been created."
 
   config.ssh.forward_agent = true
   #config.vm.network "forwarded_port", guest: 8080, host: 8080
