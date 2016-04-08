@@ -10,7 +10,7 @@ Vagrant.configure(2) do |config|
   #config.vm.network "forwarded_port", guest: 3000, host: 3000
 
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = "8192"
+    vb.memory = "4000"
     vb.customize ["modifyvm", :id, "--cpus", "4"]
     vb.gui = true
     vb.customize ["modifyvm", :id, "--monitorcount", "2"]
@@ -36,7 +36,9 @@ Vagrant.configure(2) do |config|
   config.vm.provision "install-ansible", type: "shell", path: $install + "/install-ansible.sh", privileged: true
   config.vm.provision "install-nodejs", type: "shell", path: $install + "/install-nodejs.sh", privileged: true
   config.vm.provision "install-docker", type: "shell", path: $install + "/install-docker.sh", privileged: true
-  config.vm.provision "install-chrome", type: "shell", path: $install + "/install-chrome.sh", privileged: false
+  config.vm.provision "install-aws-cli", type: "shell", path: $install + "/install-aws-cli.sh", privileged: true  
+  config.vm.provision "install-ecs-cli", type: "shell", path: $install + "/install-ecs-cli.sh", privileged: true
+  # config.vm.provision "install-chrome", type: "shell", path: $install + "/install-chrome.sh", privileged: false
   config.vm.provision "install-atom", type: "shell", path: $atom + "/install-atom.sh", privileged: false
   config.vm.provision "install-atom-eclipse-keybindings", type: "shell", path: $atom_packages + "/install-atom-eclipse-keybindings.sh", privileged: false
   config.vm.provision "install-atom-highlight-selected", type: "shell", path: $atom_packages + "/install-atom-highlight-selected.sh", privileged: false
