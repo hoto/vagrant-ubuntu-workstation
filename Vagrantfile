@@ -3,7 +3,7 @@
 
 Vagrant.configure(2) do |config|
   config.vm.box = "box-cutter/ubuntu1404-desktop"
-  config.vm.post_up_message = "Hello Andrzej. Your machine has been created."
+  config.vm.post_up_message = "Hello Andrzej. Your machine is up and running."
 
   config.ssh.forward_agent = true
   #config.vm.network "forwarded_port", guest: 8080, host: 8080
@@ -37,6 +37,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision "install-ansible", type: "shell", path: $install + "/install-ansible.sh", privileged: true
   config.vm.provision "install-nodejs", type: "shell", path: $install + "/install-nodejs.sh", privileged: true
   config.vm.provision "install-docker", type: "shell", path: $install + "/install-docker.sh", privileged: true
+  config.vm.provision "install-docker-compose", type: "shell", path: $install + "/install-docker-compose.sh", privileged: true
   config.vm.provision "install-aws-cli", type: "shell", path: $install + "/install-aws-cli.sh", privileged: true
   config.vm.provision "install-eb-cli", type: "shell", path: $install + "/install-eb-cli.sh", privileged: true
   config.vm.provision "install-ecs-cli", type: "shell", path: $install + "/install-ecs-cli.sh", privileged: true
