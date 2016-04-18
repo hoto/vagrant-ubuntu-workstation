@@ -40,6 +40,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision "install-docker-compose", type: "shell", path: $install + "/install-docker-compose.sh", privileged: true
   config.vm.provision "install-jq", type: "shell", path: $install + "/install-jq.sh", privileged: true
   config.vm.provision "install-jmespath", type: "shell", path: $install + "/install-jmespath.sh", privileged: true
+  config.vm.provision "install-aws-shell", type: "shell", path: $install + "/install-aws-shell.sh", privileged: true
   config.vm.provision "install-aws-cli", type: "shell", path: $install + "/install-aws-cli.sh", privileged: true
   config.vm.provision "install-eb-cli", type: "shell", path: $install + "/install-eb-cli.sh", privileged: true
   config.vm.provision "install-ecs-cli", type: "shell", path: $install + "/install-ecs-cli.sh", privileged: true
