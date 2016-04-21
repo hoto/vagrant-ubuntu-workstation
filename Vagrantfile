@@ -6,8 +6,8 @@ Vagrant.configure(2) do |config|
   config.vm.post_up_message = "Hello Andrzej. Your machine is up and running."
 
   config.ssh.forward_agent = true
-  #config.vm.network "forwarded_port", guest: 8080, host: 8080
-  #config.vm.network "forwarded_port", guest: 3000, host: 3000
+  config.vm.network "forwarded_port", guest: 8080, host: 8080
+  config.vm.network "forwarded_port", guest: 3000, host: 3000
 
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "4000"
@@ -16,8 +16,8 @@ Vagrant.configure(2) do |config|
     vb.customize ["modifyvm", :id, "--monitorcount", "2"]
   end
 
-  # config.vm.synced_folder "../../git", "/home/vagrant/git", owner: "vagrant", group: "vagrant"
-  config.vm.synced_folder "../../git", "/home/vagrant/git"
+  config.vm.synced_folder "../../git", "/home/vagrant/git", owner: "vagrant", group: "vagrant"
+  #config.vm.synced_folder "../../git", "/home/vagrant/git"
 
   config.vm.provision "copy-gitconfig", type: "file", source: "~/.gitconfig", destination: ".gitconfig"
   config.vm.provision "copy-gittoken", type: "file", source: "~/.gittoken", destination: ".gittoken"
@@ -29,11 +29,11 @@ Vagrant.configure(2) do |config|
   $atom_packages = $atom + "/packages"
   $uninstall = $deployment + "/uninstall"
   $setup = $deployment + "/setup"
-  $launcher = $setup + "/launcher-icons"
 
   config.vm.provision "uninstall-libre", type: "shell", path: $uninstall + "/uninstall-libre.sh", privileged: true
   config.vm.provision "uninstall-amazon", type: "shell", path: $uninstall + "/uninstall-amazon.sh", privileged: true
 
+  config.vm.provision "install-pip", type: "shell", path: $install + "/install-pip.sh", privileged: true
   config.vm.provision "install-ansible", type: "shell", path: $install + "/install-ansible.sh", privileged: true
   config.vm.provision "install-nodejs", type: "shell", path: $install + "/install-nodejs.sh", privileged: true
   config.vm.provision "install-docker", type: "shell", path: $install + "/install-docker.sh", privileged: true
@@ -59,16 +59,4 @@ Vagrant.configure(2) do |config|
   config.vm.provision "setup-home", type: "shell", path: $setup + "/setup-home.sh", privileged: false
   config.vm.provision "setup-vim", type: "shell", path: $setup + "/setup-vim.sh", privileged: false
   config.vm.provision "setup-wallpaper", type: "shell", path: $setup + "/setup-wallpaper.sh", privileged: true
-
-  # This does not work, it uses gsetting which does not work over ssh, maybe ansible will be able to do it?
-  config.vm.provision "add-chrome-icon", type: "shell", path: $launcher + "/add-chrome-icon.sh", privileged: false
-  config.vm.provision "add-atom-icon", type: "shell", path: $launcher + "/add-chrome-icon.sh", privileged: false
-  config.vm.provision "remove-firefox-icon", type: "shell", path: $launcher + "/remove-firefox-icon.sh", privileged: false
-
-  # config.vm.network "private_network", ip: "192.168.33.10"
-
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  # config.vm.network "public_network"
 end
