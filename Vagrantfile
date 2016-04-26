@@ -7,7 +7,10 @@ Vagrant.configure(2) do |config|
   config.ssh.forward_agent = true
 
   config.vm.network "private_network", ip: "192.168.50.4"
+  config.vm.network "forwarded_port", guest: 80, host: 80
   config.vm.network "forwarded_port", guest: 3000, host: 3000
+  config.vm.network "forwarded_port", guest: 3030, host: 3030
+  config.vm.network "forwarded_port", guest: 5000, host: 5000
   config.vm.network "forwarded_port", guest: 8080, host: 8080
 
   config.vm.provider "virtualbox" do |vb|
@@ -19,6 +22,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.synced_folder "../../git", "/home/vagrant/git", owner: "vagrant", group: "vagrant"
 
+  config.vm.provision "copy-ssh-keys", type: "file", source: "~/.ssh", destination: "."
   config.vm.provision "copy-gitconfig", type: "file", source: "~/.gitconfig", destination: ".gitconfig"
   config.vm.provision "copy-gittoken", type: "file", source: "~/.gittoken", destination: ".gittoken"
   config.vm.provision "copy-wallpaper", type: "file", source: "wallpapers/wallpaper.jpg", destination: "tmp/wallpapers/wallpaper.jpg"
