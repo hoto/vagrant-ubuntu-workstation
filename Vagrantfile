@@ -26,6 +26,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision "copy-gitconfig", type: "file", source: "~/.gitconfig", destination: ".gitconfig"
   config.vm.provision "copy-gittoken", type: "file", source: "~/.gittoken", destination: ".gittoken"
   config.vm.provision "copy-wallpaper", type: "file", source: "wallpapers/wallpaper.jpg", destination: "tmp/wallpapers/wallpaper.jpg"
+  #config.vm.provision "copy-dockerconf", type: "file", source: ENV['USERPROFILE'] + "/.docker/config.json", destination: ".docker/config.json"
 
   $deployment = "deployment"
   $install = $deployment + "/install"
@@ -49,6 +50,8 @@ Vagrant.configure(2) do |config|
   config.vm.provision "install-atom", type: "shell", path: $atom + "/install-atom.sh", privileged: false
   config.vm.provision "install-atom-eclipse-keybindings", type: "shell", path: $atom_packages + "/install-atom-eclipse-keybindings.sh", privileged: false
   config.vm.provision "install-atom-highlight-selected", type: "shell", path: $atom_packages + "/install-atom-highlight-selected.sh", privileged: false
+  config.vm.provision "install-atom-language-docker", type: "shell", path: $atom_packages + "/install-atom-language-docker.sh", privileged: false
+  config.vm.provision "install-atom-file-icons", type: "shell", path: $atom_packages + "/install-atom-file-icons.sh", privileged: false
   config.vm.provision "install-vim", type: "shell", path: $install + "/install-vim.sh", privileged: true
   config.vm.provision "install-xclip", type: "shell", path: $install + "/install-xclip.sh", privileged: true
   config.vm.provision "install-screen", type: "shell", path: $install + "/install-screen.sh", privileged: true
