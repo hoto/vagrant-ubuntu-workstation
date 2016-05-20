@@ -52,6 +52,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision "install-atom-highlight-selected", type: "shell", path: $atom_packages + "/install-atom-highlight-selected.sh", privileged: false
   config.vm.provision "install-atom-language-docker", type: "shell", path: $atom_packages + "/install-atom-language-docker.sh", privileged: false
   config.vm.provision "install-atom-file-icons", type: "shell", path: $atom_packages + "/install-atom-file-icons.sh", privileged: false
+  config.vm.provision "install-atom-open-terminal-here", type: "shell", path: $atom_packages + "/install-atom-open-terminal-here.sh", privileged: false
   config.vm.provision "install-vim", type: "shell", path: $install + "/install-vim.sh", privileged: true
   config.vm.provision "install-xclip", type: "shell", path: $install + "/install-xclip.sh", privileged: true
   config.vm.provision "install-screen", type: "shell", path: $install + "/install-screen.sh", privileged: true
