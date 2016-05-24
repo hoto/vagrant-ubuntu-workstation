@@ -14,7 +14,7 @@ Vagrant.configure(2) do |config|
   config.vm.network "forwarded_port", guest: 8080, host: 8080
 
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = "4000"
+    vb.memory = "6000"
     vb.customize ["modifyvm", :id, "--cpus", "4"]
     vb.gui = true
     vb.customize ["modifyvm", :id, "--monitorcount", "1"]
