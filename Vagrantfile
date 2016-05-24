@@ -7,11 +7,8 @@ Vagrant.configure(2) do |config|
   config.ssh.forward_agent = true
 
   config.vm.network "private_network", ip: "192.168.50.4"
-  config.vm.network "forwarded_port", guest: 80, host: 80
-  config.vm.network "forwarded_port", guest: 3000, host: 3000
-  config.vm.network "forwarded_port", guest: 3030, host: 3030
-  config.vm.network "forwarded_port", guest: 5000, host: 5000
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
+  #config.vm.network "forwarded_port", guest: 80, host: 80
+  #config.vm.network "forwarded_port", guest: 3000, host: 3000
 
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "6000"
@@ -53,6 +50,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision "install-atom-language-docker", type: "shell", path: $atom_packages + "/install-atom-language-docker.sh", privileged: false
   config.vm.provision "install-atom-file-icons", type: "shell", path: $atom_packages + "/install-atom-file-icons.sh", privileged: false
   config.vm.provision "install-atom-open-terminal-here", type: "shell", path: $atom_packages + "/install-atom-open-terminal-here.sh", privileged: false
+  config.vm.provision "install-atom-language-dots", type: "shell", path: $atom_packages + "/install-atom-language-dots.sh", privileged: false
   config.vm.provision "install-vim", type: "shell", path: $install + "/install-vim.sh", privileged: true
   config.vm.provision "install-xclip", type: "shell", path: $install + "/install-xclip.sh", privileged: true
   config.vm.provision "install-screen", type: "shell", path: $install + "/install-screen.sh", privileged: true
