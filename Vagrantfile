@@ -56,6 +56,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision "install-atom-git-diff-details", type: "shell", path: $atom_packages + "/install-atom-git-diff-details.sh", privileged: false
   config.vm.provision "install-atom-language-dots", type: "shell", path: $atom_packages + "/install-atom-language-dots.sh", privileged: false
   config.vm.provision "install-atom-tree-view-git-status", type: "shell", path: $atom_packages + "/install-atom-tree-view-git-status.sh", privileged: false
+  config.vm.provision "install-atom-language-typescript-grammars-only", type: "shell", path: $atom_packages + "/install-atom-language-typescript-grammars-only.sh", privileged: false
   config.vm.provision "install-vim", type: "shell", path: $install + "/install-vim.sh", privileged: true
   config.vm.provision "install-xclip", type: "shell", path: $install + "/install-xclip.sh", privileged: true
   config.vm.provision "install-screen", type: "shell", path: $install + "/install-screen.sh", privileged: true
