@@ -15,6 +15,8 @@ Vagrant.configure(2) do |config|
     vb.customize ["modifyvm", :id, "--cpus", "4"]
     vb.gui = true
     vb.customize ["modifyvm", :id, "--monitorcount", "1"]
+    # this fixes a bug in VBox guest additions 5.20 causing OpenGL apps to be always on top (atom, chrome)
+    vb.customize ["modifyvm", :id, "--accelerate3d", "off"]
   end
 
   config.vm.synced_folder "c:/git", "/home/vagrant/git", owner: "vagrant", group: "vagrant"
