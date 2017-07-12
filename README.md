@@ -18,3 +18,5 @@ Run:
 * install VmWare or other virtualization software
 * `vagrant up`
 
+    User: vagrant
+    Pass: vagrant
